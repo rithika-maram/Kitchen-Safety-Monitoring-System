@@ -1,187 +1,121 @@
 # Kitchen Safety Heat and Gas Monitoring and Alert System
 
-An ARM7-based embedded systems project using the LPC2148 microcontroller to monitor kitchen temperature and gas sensor readings and provide alerts when configured safety thresholds are exceeded.
+## 1. Project Overview
 
-## 📌 Project Overview
+The **Kitchen Safety Heat and Gas Monitoring and Alert System** is an embedded systems project developed using the LPC2148 ARM7 microcontroller and Embedded C.
 
-Kitchen environments can be exposed to excessive heat and gas leakage. This project implements an embedded monitoring system that continuously reads temperature and gas sensor values, displays system information on an LCD, and activates an alert when a configured threshold is crossed.
+The system monitors kitchen temperature and gas levels using sensors. When the detected temperature or gas level exceeds a predefined threshold, the system provides an alert to help identify potentially unsafe conditions.
 
-The system is developed using the LPC2148 ARM7 microcontroller and Embedded C. It combines sensor interfacing, ADC, LCD interfacing, keypad input, RTC functionality, and interrupt-based user interaction.
+An LCD is used to display system information and sensor readings. A buzzer and LED indicators can provide alerts when configured threshold conditions are detected.
 
-## 🎯 Objectives
+This project demonstrates the application of microcontrollers, sensor interfacing, ADC, LCD interfacing, and embedded C programming in a kitchen safety monitoring prototype.
 
-- Monitor temperature using the LM35 temperature sensor.
-- Read gas sensor output from the MQ-2 sensor through the ADC.
-- Display temperature, gas readings, date, time, and system status on an LCD.
-- Generate audible and visual alerts when configured limits are exceeded.
-- Provide password-protected access to system settings.
-- Allow users to configure temperature and gas thresholds.
-- Record alert-related readings and timestamps for monitoring.
+## 2. Objectives
 
-## 🛠️ Hardware Components
+- Monitor kitchen temperature using the LM35 temperature sensor.
+- Detect the presence of gas using the MQ-2 gas sensor.
+- Display sensor readings and system status on an LCD.
+- Generate alerts when configured temperature or gas thresholds are exceeded.
+- Understand sensor interfacing and ADC-based data acquisition using the LPC2148 microcontroller.
+- Develop practical skills in Embedded C programming and hardware interfacing.
+
+## 3. Hardware Components
 
 | Component | Purpose |
 |---|---|
-| LPC2148 ARM7 Microcontroller | Main controller |
-| LM35 Temperature Sensor | Temperature measurement |
-| MQ-2 Gas Sensor | Gas/smoke-related sensor readings |
-| 16×2 LCD | Displaying readings and system messages |
-| 4×4 Matrix Keypad | User input and settings |
-| RTC | Date and time information |
-| Buzzer | Audible alert |
-| LED | Visual alert |
-| Push Buttons / Switches | User interaction and alert control |
+| LPC2148 ARM7 Development Board | Processes sensor readings and controls the system |
+| LM35 Temperature Sensor | Measures temperature |
+| MQ-2 Gas Sensor Module | Detects combustible gases and smoke-related changes |
+| 16×2 LCD | Displays readings and system status |
+| Buzzer | Provides an audible alert |
+| LED Indicators | Indicate system status, if configured |
+| Keypad | Provides user input, if implemented in the program |
+| Connecting Wires | Connect the hardware components |
+| Power Supply | Supplies power to the development board and interfacing circuits |
 
-## 💻 Software and Tools
+## 4. Software and Tools
 
-- Embedded C
-- Keil µVision IDE
-- Proteus Design Suite for circuit simulation
-- Flash Magic for programming the microcontroller, if used
+- **Programming Language:** Embedded C
+- **Microcontroller:** LPC2148 (ARM7-based)
+- **IDE/Compiler:** Keil µVision
+- **Hardware Testing:** LPC2148 development board
+- **Simulation:** Proteus, if used in the project
 
-## ⚙️ System Architecture
+## 5. Working Principle
 
-The system follows this general operating sequence:
+1. The LPC2148 microcontroller initializes the required peripherals and connected devices.
+2. The LM35 temperature sensor provides a voltage corresponding to the measured temperature.
+3. The MQ-2 gas sensor module provides a signal that changes according to the detected gas concentration.
+4. The microcontroller reads the sensor signals using the appropriate input interfaces. Analog signals are read through the ADC where applicable.
+5. The measured values or system status are displayed on the LCD.
+6. The sensor readings are compared with the configured threshold values.
+7. When a threshold condition is detected, the corresponding alert is activated according to the implemented program.
 
-1. Initialize the microcontroller peripherals, LCD, ADC, keypad, and RTC.
-2. Read temperature from the LM35 sensor.
-3. Acquire the MQ-2 sensor output through the ADC.
-4. Display the readings and relevant system information on the LCD.
-5. Compare the sensor readings with the configured safety limits.
-6. Activate the buzzer and LED when a threshold is exceeded.
-7. Allow authorized access to configuration settings through password verification.
-8. Store and display relevant alert information, including the reading and timestamp, as implemented in the program.
+**Note:** The MQ-2 sensor output should not be treated as an accurate gas concentration in ppm unless the sensor has been appropriately calibrated and the measurement method validated.
 
-## 🔄 Working Principle
+## 6. Hardware Setup and Output Images
 
-### 1. Temperature Monitoring
+The following images show the hardware setup and example outputs of the project.
 
-The LM35 provides an analog output corresponding to temperature. The LPC2148 ADC reads the sensor signal, and the program processes the reading for display and threshold comparison.
+### Hardware Overview
 
-### 2. Gas Monitoring
+![Labeled hardware overview](./Labeled%20hardware%20overview.jpeg)
 
-The MQ-2 sensor provides an output that is read through the microcontroller's ADC. The program checks the resulting ADC reading against a configured limit and generates an alert when the limit is exceeded.
+### Hardware Setup with Keypad
 
-**Note:** The MQ-2 reading is treated as an ADC value in this implementation. It should not be interpreted as a calibrated gas concentration in ppm.
+![Setup with keypad connected](./Setup%20with%20the%20keypad%20connected.jpeg)
 
-### 3. LCD Display
+### Temperature Alert
 
-The LCD displays sensor readings, date and time information, alerts, and menu prompts to help the user monitor the system.
+![Temperature alert output](./Temperature%20alert.jpeg)
 
-### 4. Alert Mechanism
+### Gas Detection Outputs
 
-When the temperature or gas reading crosses its configured threshold, the system activates the buzzer and LED to notify the user.
+**Gas Safe Condition**
 
-### 5. Password-Protected Settings
+![Gas safe condition](./Gas%20safe%20%28S0%29.jpeg)
 
-The keypad and switch-based interface provides access to protected settings. The implemented menu supports configuring safety thresholds and the password, with a lockout mechanism after repeated incorrect password attempts.
+**Gas Alert**
 
-### 6. Event Monitoring
+![Gas alert output](./Gas%20alert.jpeg)
 
-The program records relevant alert information, such as sensor readings and timestamps, and can display the latest recorded event.
+**Gas Level Above Threshold**
 
-## 🔐 Security and Configuration
+![Gas above limit output](./Gas%20above%20limit%20%28S1%29.jpeg)
 
-The implemented interface includes:
+## 7. How to Run
 
-- Password verification before accessing protected settings.
-- Configurable temperature and gas thresholds.
-- Password-change functionality.
-- A temporary lockout after repeated incorrect attempts.
-- User control for temporarily silencing the alarm.
+1. Clone or download this repository.
+2. Open the project source files in Keil µVision.
+3. Confirm that the device configuration and required header files are correct for the LPC2148.
+4. Build the project and resolve any compilation errors.
+5. Connect the sensors, LCD, buzzer, and other peripherals according to the circuit connections defined in the source code.
+6. Program the compiled output onto the LPC2148 development board using the appropriate programming utility.
+7. Power on the board and observe the LCD readings and alert behavior under the supported test conditions.
 
-The available settings and timeout behavior depend on the final program configuration.
+**Note:** The exact build and programming steps depend on the project files and hardware configuration included in this repository.
 
-## 📁 Repository Structure
+## 8. Future Enhancements
 
-```text
-Kitchen-Safety-Monitoring-System/
-│
-├── README.md
-├── main.c
-├── types.h
-├── defines.h
-├── delay.c
-├── delay.h
-├── LCD.c
-├── LCD.h
-├── LCD_defines.h
-├── KPM.c
-├── KPM.h
-├── KPM_defines.h
-├── LM35.c
-├── LM35.h
-├── ADC.c
-├── ADC.h
-├── RTC.c
-├── RTC.h
-├── pin_connect_block.c
-├── pin_connect_block.h
-│
-├── Circuit_Diagram/
-├── Proteus_Simulation/
-└── Output_Images/
-```
+- Add SMS or mobile notifications for detected unsafe conditions.
+- Add data logging to record temperature and gas sensor readings.
+- Improve sensor calibration and measurement accuracy.
+- Add wireless monitoring using an appropriate communication module.
+- Integrate a properly designed automatic gas shutoff mechanism, with suitable safety testing.
 
-*The file list above is illustrative. Keep the filenames that actually exist in your project, and add the other driver files required by your code.*
+## 9. Applications
 
-## ▶️ Build and Run Instructions
+- Educational embedded systems projects
+- Kitchen temperature and gas monitoring demonstrations
+- Sensor interfacing and microcontroller learning
+- Embedded C and ADC experimentation
 
-1. Open the Keil µVision project, if a project file is available.
-2. Verify the target microcontroller and project configuration.
-3. Add or confirm all required source and header files.
-4. Check the GPIO pin assignments, ADC configuration, LCD connections, keypad connections, and RTC setup.
-5. Build the project and resolve any compilation errors.
-6. Program the LPC2148 board using the appropriate programming procedure, or load the program into the supported simulation setup.
-7. Verify the LCD output, sensor readings, threshold alerts, keypad operation, and event display.
+## 10. Safety Disclaimer
 
-## 🧪 Testing
+This project is an educational prototype and is **not a certified kitchen safety or gas-leak prevention device**. It should not replace certified gas detectors, smoke alarms, or other approved safety equipment.
 
-The following tests can be documented with your actual hardware or simulation results:
+## 11. Author
 
-- LCD initialization and display.
-- Temperature sensor reading and display.
-- Gas sensor ADC reading and display.
-- Temperature threshold alert.
-- Gas threshold alert.
-- Password verification and incorrect-attempt handling.
-- Configuration menu operation.
-- RTC date and time display.
-- Alert event recording and display.
-- Buzzer and LED response.
-
-Add screenshots or photographs to demonstrate the tests you have actually completed.
-
-## 🚀 Future Enhancements
-
-- Add remote notifications for gas or temperature alerts.
-- Integrate a calibrated gas measurement system.
-- Add non-volatile storage for configuration settings and event records.
-- Integrate a certified gas shutoff mechanism where appropriate.
-- Improve the user interface and add additional diagnostic information.
-
-These are proposed enhancements and are not claimed as completed features.
-
-## 📚 Concepts Demonstrated
-
-- ARM7 LPC2148 microcontroller programming
-- Embedded C programming
-- Analog-to-Digital Conversion (ADC)
-- Sensor interfacing
-- LCD and keypad interfacing
-- Real-Time Clock (RTC)
-- Interrupt handling
-- Threshold-based monitoring
-- Embedded system debugging and simulation
-
-## 👩‍💻 Author
-
-**Maram Rithika**
-
-B.Tech – Electronics and Communication Engineering
-
-Project Domain: Embedded Systems
-
-## ⚠️ Disclaimer
-
-This is an educational embedded systems project. It is not a certified kitchen safety device. The sensor readings and alert behavior depend on the hardware, calibration, and software implementation. Do not rely on this prototype as the sole protection against gas leakage or fire.
+**Project:** Kitchen Safety Heat and Gas Monitoring and Alert System  
+**Platform:** LPC2148 ARM7 Microcontroller  
+**Language:** Embedded C
