@@ -1,0 +1,17 @@
+#include<stdio.h>
+int Sum(int x,int y)
+{
+	int res1;
+	res1=x+y;
+	return res1;
+}
+int main()
+{
+	int a,b,sum,prod;
+	printf("enter the numbers\n");	
+	scanf("%d %d",&a,&b);
+	res1=Sum(a,b);
+	res2=Product(a,b);
+	printf("sum:%d prod:%d",res1,res2);
+}
+	

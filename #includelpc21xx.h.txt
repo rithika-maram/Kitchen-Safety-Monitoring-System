@@ -1,0 +1,102 @@
+/*#include<lpc21xx.h>
+#include "types.h"
+#include "delay.h"
+#include "LCD.h"
+#include "KPM.h"
+#define EINT0_LED 3
+#define EINT0_SWITCH 16
+#define EINT0_CHNO 14
+
+
+u32 choice;
+volatile u32 edit_request = 0;
+
+
+void eint0_isr(void)__irq
+{
+	 edit_request = 1;
+	delay_ms(1000);
+	VICVectAddr=0;
+	EXTINT=1<<0;
+}
+
+void eint0_enable(void)
+{
+	
+    PINSEL1 &= ~(3 << 0);
+    PINSEL1 |=  (1 << 0);
+	
+	EXTMODE |= 1 << 0;
+  EXTPOLAR &= ~(1 << 0);
+  EXTINT = 1 << 0;
+	
+	VICIntSelect &= ~(1 << EINT0_CHNO);
+  VICIntEnable |= 1 << EINT0_CHNO;
+	
+	VICVectAddr0=(u32)eint0_isr;
+	VICVectCntl0=1<<5|EINT0_CHNO;
+	//EXTMODE=1<<0;
+}
+
+int main()
+{
+	u32 keyv,pass=1234;
+	Init_LCD();
+	InitKPM();
+	IODIR0|=1<<EINT0_LED;
+	Init_LCD();
+	WRITE_LCD_CMD(0x80);
+		StrLCD((u8 *)"LCD TEST");
+	//if(((IOPIN0>>EINT0_SWITCH)&1)==0)                  
+		eint0_enable();
+	
+	/*if(edit_request==1)
+	{
+		edit_request = 0;
+		WRITE_LCD_CMD(0X80);
+		//StrLCD("ENTER PASS");
+		StrLCD((u8 *)"Enter the Pass");*/
+		while(1)
+		{
+			if(edit_request==1)
+	{
+		edit_request = 0;
+		WRITE_LCD_CMD(0X80);
+		StrLCD((u8 *)"Enter the Pass");
+	delay_ms(1000);
+		WRITE_LCD_CMD(0XC0);
+			keyv=KeyScan();
+			U32LCD(keyv);
+			delay_ms(500);
+			WRITE_LCD_CMD(0XC0);
+			StrLCD((u8 *)"                ");
+		delay_ms(1000);
+			if(keyv==pass)
+			{
+				WRITE_LCD_CMD(0X80);
+				StrLCD((u8 *)"Edit Menu");
+				delay_ms(1000);
+				/*switch(choice)
+				{
+					case '1' : RTC();
+				break;
+			case '2' : TEMP THRESHOLD();
+				break;
+			case '3' : GAS THRESHOLD();
+				break;
+			case '4' : CHANGE PASSWORD();
+				break;
+			case '5' : exit(0);
+				}*/
+		/*				}
+			else 
+			{
+				WRITE_LCD_CMD(0X80);
+				StrLCD((u8 *)"Edit Menu");
+			}
+		}		
+	}
+}*/
+
+
+
