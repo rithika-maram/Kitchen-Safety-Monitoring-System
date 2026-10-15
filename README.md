@@ -429,6 +429,6 @@ flowchart LR
 
 ## 👤 Author
 
-**Balaji Pidikiti**
+**Rithika Maram**
 
 <p align="center"><sub>⭐ If you found this project useful, consider giving it a star.</sub></p>
